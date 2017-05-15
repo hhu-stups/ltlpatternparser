@@ -33,6 +33,6 @@ dependencies {
 	compile group: 'de.hhu.stups', name: 'ltl-dsl', version: '0.1.0'
 	compile group: "de.hhu.stups", name: "parserbase", version: parser_version , changing: true
 	compile group: "de.hhu.stups", name: "prologlib", version: parser_version , changing: true
-	compile group: 'org.antlr', name: 'antlr4-runtime', version: '4.7'
+	compile group: 'org.antlr', name: 'antlr4', version: '4.5'
 	compile 'junit:junit:4.8.2'
 }
