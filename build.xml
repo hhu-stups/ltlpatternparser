@@ -1,0 +1,64 @@
+<project name="ltlparser" default="generate" basedir=".">
+    <property name="src" location="src" />
+    <property name="gen" location="gen" />
+    <property name="package-path" value="de/prob/ltl/parser/" />
+    <property name="package" value="de.prob.ltl.parser" />
+    <property name="build" location="build" />
+ 
+    <path id="classpath">
+        <pathelement location="lib/antlr-4.0-complete.jar" />
+        <pathelement location="lib/parserbase-2.4.11-SNAPSHOT.jar" />
+        <pathelement location="lib/prologlib-2.4.11-SNAPSHOT.jar" />
+        <pathelement location="bin" />
+    </path>
+	 
+    <target name="generate" depends="clean">
+        <mkdir dir="${gen}/${package-path}" />
+        <java classname="org.antlr.v4.Tool" classpathref="classpath" fork="true">
+   			<arg value="Ltl.g4" />
+            <arg value="-o" />
+            <arg path="${gen}/${package-path}" />
+            <arg value="-listener" />
+            <arg value="-visitor" />
+        </java>
+    </target>
+	 
+   	<target name="compile" depends="generate">
+   		<mkdir dir="${build}" />
+   		<javac srcdir="${src}:${gen}" destdir="${build}">
+   			<classpath refid="classpath" />
+  		</javac>
+   		<copy todir="${build}">
+   			<fileset dir="${gen}">
+   		    	<include name="**/*.tokens"/>
+   		    </fileset>
+   		  </copy>
+   	</target>
+	 
+   	<target name="jar" depends="compile">
+   		<jar destfile="ltl-dsl.jar"
+   			basedir="${build}"/>
+   	</target>
+ 
+    <target name="showtree" depends="generate">
+    	<condition property="test.content.default" value="">
+    		<not>
+    			<available file="test.script" />
+    		</not>
+    	</condition>
+    	<loadfile property="test.content.default" srcfile="test.script" failonerror="false" />
+        <input message="Enter formula to test:" addproperty="test.content" defaultvalue="${test.content.default}" />
+    	<echo file="test.script" append="false" message="${test.content}" />
+        <java classname="org.antlr.v4.runtime.misc.TestRig" classpathref="classpath" fork="true">
+            <arg value="${package}.Ltl" />
+            <arg value="start" />
+            <arg value="-gui" />
+            <arg value="test.script" />
+        </java>
+    </target>
+ 
+    <target name="clean">
+        <delete file="${gen}/*" includeemptydirs="true" />
+        <delete file="build/*" includeemptydirs="true" />
+    </target>
+</project>
