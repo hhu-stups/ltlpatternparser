@@ -3,14 +3,14 @@ package de.prob.ltl.parser.semantic;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import de.prob.ltl.parser.LtlBlockingListener;
+import de.prob.ltl.parser.symboltable.Variable;
+import de.prob.ltl.parser.symboltable.VariableTypes;
 import de.prob.ltl.parser.LtlParser;
 import de.prob.ltl.parser.LtlParser.ExprContext;
 import de.prob.ltl.parser.LtlParser.Pattern_callContext;
 import de.prob.ltl.parser.LtlParser.Scope_callContext;
 import de.prob.ltl.parser.LtlParser.SeqCallAtomContext;
 import de.prob.ltl.parser.LtlParser.VariableCallAtomContext;
-import de.prob.ltl.parser.symboltable.Variable;
-import de.prob.ltl.parser.symboltable.VariableTypes;
 
 public class Expr extends AbstractSemanticObject {
 

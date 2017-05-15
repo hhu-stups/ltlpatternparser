@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 
-import de.prob.ltl.parser.LtlParser;
 import de.prob.ltl.parser.WarningListener;
 import de.prob.ltl.parser.semantic.PatternDefinition;
+import de.prob.ltl.parser.LtlParser;
 
 
 public class Pattern {
