@@ -2,6 +2,21 @@ language: java
 
 jdk: oraclejdk8
 
+branches:
+	only:
+	- master
+
 addons:
-  apt:
-	packages: oracle-java8-installer
+	apt:
+		packages: oracle-java8-installer
+script:
+- ./gradlew check
+- ./gradlew distZip
+
+sudo: false
+before_install:
+- rvm install 2.0.0
+- gem install travis-custom-deploy
+
+after_success:
+- travis-custom-deploy stfp build/distributions/*.zip
